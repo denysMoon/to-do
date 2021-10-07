@@ -1,11 +1,12 @@
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-const AlertComponent = () => {
+const AlertComponent = ( {alert} ) => {
+    console.log(alert)
     return (
         <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
-            This is an error alert — <strong>check it out!</strong>
+            Reload the application
         </Alert>
     )
 }

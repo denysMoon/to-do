@@ -5,7 +5,7 @@ import Spinner from './Spinner';
 import AlertComponent from './AlertComponent';
 import { useSelector } from 'react-redux'
 
-const ToDoContainer = () =>{
+const ToDoContainer = ({ setValue }) =>{
 
     const state = useSelector(state=>state.fetch.fetchedPosts)
     const loader = useSelector(state=>state.app.loading)
@@ -14,9 +14,11 @@ const ToDoContainer = () =>{
     const loading = () =>{
         if(loader){
             return <Spinner />
+        } else if (alert) {
+            return <AlertComponent />
         } else {
-            return [...state].reverse().map(item=><ToDoItem item={item} key={item._id} />)
-        }        
+            return [...state].reverse().map(item=><ToDoItem item={item} state={state} setValue={setValue} key={item._id} />)
+        }
     }
 
     return(      

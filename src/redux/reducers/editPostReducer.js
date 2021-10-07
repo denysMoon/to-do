@@ -1,15 +1,15 @@
-import { EDIT_POST } from '../types'
+// import { EDIT_POST } from '../types'
 
-const initialState = {
-  editPost: ''
-}
+// const initialState = {
+//   editPost: ''
+// }
 
-export const editPostReducer = (state = initialState, action) => {
-    switch(action.type) {
-      case EDIT_POST:
-        return { ...state, editPost: action.payload };
+// export const editPostReducer = (state = initialState, action) => {
+//     switch(action.type) {
+//       case EDIT_POST:
+//         return { ...state, editPost: action.payload };
       
-      default: return state
-    }
-  }
+//       default: return state
+//     }
+//   }
 

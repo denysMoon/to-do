@@ -1,30 +1,43 @@
 import Container from '@mui/material/Container';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postAction } from '../redux/actions'
+import { postAction, editPostAction, showFillFormAlert, hideFillFormAlert } from '../redux/actions'
+import { styled } from '@mui/material/styles';
 
-const FormInput = () =>{
-    const [value,setValue] = useState("")
+const FormInput = ({ value, setValue }) =>{
+    const fillForm = useSelector(state=>state.app.form)
     const dispatch = useDispatch()
-    const storeEditPost = useSelector(store=>store.editPost.editPost)
 
     const onChange = e =>{
-        const value = e.target.value
-        setValue(value)
+        dispatch(hideFillFormAlert())
+        setValue({...value, body: e.target.value})
     }
 
     const onSubmit = e =>{
         e.preventDefault()
 
-        dispatch(postAction(value))
-        setValue("")
+        if(!value.body.trim()){
+            dispatch(showFillFormAlert())
+            return
+        }
+
+        if(value._id){
+            dispatch(editPostAction(value._id, value.body))
+        } else {
+           dispatch(postAction(value.body)) 
+        }
+        setValue({body: ''})
     }
 
+    const CustomContainer = styled(Container)(({ theme }) => ({
+        [theme.breakpoints.down('md')]: {
+            
+          },
+      }));
+
     return(
-        <Container maxWidth="md"
+        <CustomContainer maxWidth="md"
           sx={{mt: 2}}  >
             <form onSubmit={onSubmit}>
                 <Grid container
@@ -33,24 +46,17 @@ const FormInput = () =>{
                 justifyContent="space-between"
                 >
                     <Grid item
-                    xs={11} >
+                    xs={12}>
                         <TextField type="form"
-                        label="Type"
-                        value={value}
+                        label={fillForm ? "You should type something" : "Type"}
+                        value={value.body}
                         onChange={onChange}
                         onSubmit={onSubmit}
                         fullWidth={true} />                     
                     </Grid>
-                    <Grid item
-                    xs={1} >
-                        <Button variant="text"
-                        onClick={onSubmit} >
-                            Do it
-                        </Button>  
-                    </Grid>
                 </Grid>
             </form>
-        </Container>
+        </CustomContainer>
     )
 }
 
