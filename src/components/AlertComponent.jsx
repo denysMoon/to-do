@@ -1,12 +1,12 @@
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-const AlertComponent = ( {alert} ) => {
+const AlertComponent = ( {alert, message, warning} ) => {
     console.log(alert)
     return (
-        <Alert severity="error">
+        <Alert severity= {warning ? warning : "error"} sx={{mt: 2}}>
             <AlertTitle>Error</AlertTitle>
-            Reload the application
+            { message ? message : "Reload the application" }
         </Alert>
     )
 }

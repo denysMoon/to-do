@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
 import { postAction, editPostAction, showFillFormAlert, hideFillFormAlert } from '../redux/actions'
 import { styled } from '@mui/material/styles';
+import AlertComponent from './AlertComponent'
 
 const FormInput = ({ value, setValue }) =>{
     const fillForm = useSelector(state=>state.app.form)
@@ -38,7 +39,7 @@ const FormInput = ({ value, setValue }) =>{
 
     return(
         <CustomContainer maxWidth="md"
-          sx={{mt: 2}}  >
+          sx={{mt: 2}} >
             <form onSubmit={onSubmit}>
                 <Grid container
                 direction="row"
@@ -48,11 +49,19 @@ const FormInput = ({ value, setValue }) =>{
                     <Grid item
                     xs={12}>
                         <TextField type="form"
-                        label={fillForm ? "You should type something" : "Type"}
+                        label="Type"
                         value={value.body}
                         onChange={onChange}
                         onSubmit={onSubmit}
-                        fullWidth={true} />                     
+                        fullWidth={true}
+                        autoFocus={true} />
+                        {
+                            fillForm ? (
+                                <AlertComponent message="Type something" warning="info" />
+                            ) : (
+                                null
+                            )
+                        }
                     </Grid>
                 </Grid>
             </form>
