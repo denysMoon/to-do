@@ -9,9 +9,6 @@ import { Provider } from 'react-redux'
 import { rootReducer } from './redux/reducers/rootReducer'
 import thunk from 'redux-thunk'
 
-console.log(typeof process.env.REACT_APP_REDUX_DEVTOOLS)
-console.log(process.env.REACT_APP_REDUX_DEVTOOLS_PRODUCTION)
-
 // const store = createStore(rootReducer, compose(
 //   applyMiddleware(
 //     thunk

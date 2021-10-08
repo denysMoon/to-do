@@ -16,6 +16,8 @@ const ToDoContainer = ({ setValue }) =>{
             return <Spinner />
         } else if (alert) {
             return <AlertComponent />
+        } else if (state.length === 0) {
+            return <AlertComponent message="There is no notes" warning="info" />
         } else {
             return [...state].reverse().map(item=><ToDoItem item={item} state={state} setValue={setValue} key={item._id} />)
         }
